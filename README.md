@@ -16,3 +16,7 @@ Automating parking lot detection will be at least one of: expensive, inaccurate.
 The greatest challenge with crowdsourcing data is encouraging your users to submit data. 
 
 In this application users have an incentive to submit data for their own benefit. This can be augmented with systems like a Badge system where users gain "Badges" for certain accomplishments. Having monetary or other kinds of prizes would also encourage users to submit data (and overall would be much cheaper than an automated solution.)
+
+A user account will be used to track Badges and allow users to have "Favorite" lots. This will also protect against malicious users who seek to insert bad data; Those without an account will be able to see lot status but will be unable to send in an update.
+
+*See [SOFTWARE](SOFTWARE.md) to see a list of software used.*
