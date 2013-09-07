@@ -3,7 +3,8 @@ from sqlalchemy import Column, Integer, Unicode, DateTime, PickleType
 from sqlalchemy import ForeignKey
 from sqlalchemy.ext.declarative import declared_attr
 import flask.ext.sqlalchemy
-from application import app
+from passlib.hash import sha512_crypt
+from ParkingAttendent import app
 
 # Create base class with default table name and id
 class Base(flask.ext.sqlalchemy.Model):
@@ -19,9 +20,9 @@ db = SQLAlchemy(app)
 
 class User(db.Model):
 
-    username = Column(Unicode(50), nullable=False, index=True)
+    username = Column(Unicode(50), unique=True, nullable=False, index=True)
     name = Column(Unicode(100), nullable=False)
-    hash = Column(Unicode(100), nullable=False)
+    pwhash = Column(Unicode(250), nullable=False)
     settings = Column(PickleType)
 
     @property
@@ -31,13 +32,16 @@ class User(db.Model):
         except AttributeError:
             return []
 
+    def login(self, passwd):
+        return sha512_crypt.verify(passwd, self.pwhash)
+
     def __repr__(self):
         return '<User({0})>'.format(self.username)
 
 class Badge(db.Model):
 
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False, index=True)
-    name = Column(Unicode(100), nullable=False, index=True)
+    description = Column(Unicode(100), nullable=False, index=True)
     date = Column(DateTime, nullable=False, index=True)
 
     user = db.relationship('User', backref=db.backref('badges', order_by='Badge.date'))
@@ -49,6 +53,15 @@ class Lot(db.Model):
 
     description = Column(Unicode(250), nullable=False)
 
+    @property
+    def score(self):
+        score = int(round(float(sum([x.score for x in self.checkins]))/len(self.checkins)))
+        date = self.checkins[0].date
+        users = set([x.user for x in self.checkins])
+        return self.score_to_words(score), date, users
+
+    def score_to_words(self,score):
+        return {0:'Empty',1:'Nearly Empty',2:'Many Spots Open',3:'Spots Open',4:'Nearly Full',5:'Full'}[score]
     def __repr__(self):
         return '<Lot({0})>'.format(self.id)
 

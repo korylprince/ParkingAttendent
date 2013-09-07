@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block body_content %}
+{{ super() }}
+{% for lot in lots %}
+<div class="lot col-xs-12 {{ loop.cycle('odd', 'even') }} clearfix"><div class="lot-description col-xs-4">{{ lot.description }}</div><div class="lot-score col-xs-8">{{ lot.score[0] }}</div></div>
+{% endfor %}
+{% endblock body_content %}

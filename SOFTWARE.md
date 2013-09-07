@@ -22,6 +22,8 @@ Could use [Redis](http://redis.io/) or [Memcached](http://memcached.org/) to cac
 
 [Flask-Assets](http://elsdoerfer.name/docs/flask-assets/)
 
+[Flask-Login](http://flask-login.readthedocs.org/en/latest/)
+
 [Flask-Restless](http://flask-restless.readthedocs.org/en/latest/)
 
 [Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/)
@@ -31,6 +33,8 @@ Could use [Redis](http://redis.io/) or [Memcached](http://memcached.org/) to cac
 [cssmin](https://github.com/zacharyvoase/cssmin)
 
 [jsmin](https://bitbucket.org/dcs/jsmin/)
+
+[passlib](http://pythonhosted.org/passlib/)
 
 ## Javascript ##
 

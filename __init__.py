@@ -1,9 +1,8 @@
 from flask import Flask, render_template
 from flask.ext.assets import Environment, Bundle
-import model
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 
 assets = Environment(app)
 
@@ -15,9 +14,15 @@ css = Bundle('css/main.css',
             filters='less,cssmin', output='min/screen.css')
 assets.register('css_all', css)
 
-@app.route("/")
-def hello():
-    return render_template('base.html')
 
-if __name__ == "__main__":
+if __name__ == '__main__':
+    from ParkingAttendent.models import db
+    db.create_all()
+    from ParkingAttendent.initial_data import propogate
+    try:
+        propogate()
+    except:
+        pass
+
+    from ParkingAttendent.views import *
     app.run(debug=True)
