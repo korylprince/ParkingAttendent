@@ -1,0 +1,44 @@
+{% extends "bootstrap_base.html" %}
+{%- block bootstrap_js_bottom %}
+{{super()}}
+{% assets "js_all" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+{% endassets %}
+{%- endblock bootstrap_js_bottom %}
+{%- block style %}
+{{super()}}
+{% assets "css_all" %}
+    <link href="{{ ASSET_URL }}" rel="stylesheet">
+{% endassets %}
+{%- endblock style %}
+
+{% block body_content %}
+<nav class="navbar navbar-default navbar-inverse" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">ParkingAssistant</a>
+  </div>
+
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Link</a></li>
+      <li><a href="#">Link</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User Name <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Notifications</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+{% endblock body_content %}
